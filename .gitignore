@@ -1,0 +1,9 @@
+__pycache__
+settings.json
+
+*.png
+*.jpg
+*.jpeg
+
+00_Area51.py
+template_test.py

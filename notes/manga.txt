@@ -1,0 +1,96 @@
+==================================================
+ MAIN
+==================================================
+
+sites:
+	https://mangadex.org/title/9d3d3403-1a87-4737-9803-bc3d99db1424/the-guy-she-was-interested-in-wasn-t-a-guy-at-all
+	https://dynasty-scans.com/series/the_guy_she_was_interested_in_wasnt_a_guy_at_all
+	https://mangapark.net/comic/240712/the-guy-she-was-interested-in-wasn-t-a-guy-at-all
+
+==================================================
+ MANGADEX
+==================================================
+
+mangadex uses blobs which I have no idea how to download from yet
+when I do figure it out
+i would be able to download youtube vidoes me thinks
+
+==================================================
+ DYNASTY
+==================================================
+
+i made the dynasty one but downloading photos is slow af
+	i need to make a timeout then retry FUNCTIONS
+
+they have consistent pannel page links
+	ch1 pannel 1: https://dynasty-scans.com/chapters/the_guy_she_was_interested_in_wasnt_a_guy_at_all_ch01#1
+	ch1 pannel 2: https://dynasty-scans.com/chapters/the_guy_she_was_interested_in_wasnt_a_guy_at_all_ch01#2
+	ch1 pannel 3: https://dynasty-scans.com/chapters/the_guy_she_was_interested_in_wasnt_a_guy_at_all_ch01#3
+	ch1 pannel 4: https://dynasty-scans.com/chapters/the_guy_she_was_interested_in_wasnt_a_guy_at_all_ch01#4
+unlike their image links
+	chapter 00
+	pannel 1: https://dynasty-scans.com/system/releases/000/039/165/01.webp
+	pannel 2: https://dynasty-scans.com/system/releases/000/039/165/02.webp
+	pannel 3: https://dynasty-scans.com/system/releases/000/039/165/03-04.webp
+	pannel 4: https://dynasty-scans.com/system/releases/000/039/165/05.webp
+	because pannel 3 and 4 were stitched together cuz a whole page drawing
+	compare it with chapter 1 where there are also no leading 0s on the image links
+	pannel 1: https://dynasty-scans.com/system/releases/000/036/237/1.webp
+	pannel 2: https://dynasty-scans.com/system/releases/000/036/237/2.webp
+	pannel 3: https://dynasty-scans.com/system/releases/000/036/237/3.webp
+	pannel 4: https://dynasty-scans.com/system/releases/000/036/237/4.webp
+
+	but the suffixes are consistent to the nav content
+	ex1: chapter 0 nav for pannels
+	<a ... >01</a>\n
+	<a ... >02</a>\n
+	<a ... >03-04</a>\n
+	<a ... >05</a>\n
+	ex2: chapter 1 nav for pannels
+	<a ... >1</a>
+	<a ... >2</a>
+	<a ... >3</a>
+	<a ... >4</a>
+
+
+their pannel links always give the first pannel when using requests
+	I can never get the pannel link image href to give me the second image of the chapter
+	might be possible using selenium
+	but not now
+
+==================================================
+ MANGAPARK
+==================================================
+
+manga park is fast af but you have to click the load all pages thingy
+	would be nice to use selenium for those
+	ch1 pannel 1: https://xfs-n01.xfspp.com/comic/2002/62c/6384a773cddc18516a069c26/44271760_1200_1702_549240.jpeg?acc=n93WIgKEgIsEIm2o1MJbpQ&exp=1716556783
+	ch1 pannel 2: https://xfs-n07.xfspp.com/comic/2002/62c/6384a773cddc18516a069c26/44271762_1200_1704_516065.jpeg?acc=fKgz0B8yuBX_oJ1GkoidXQ&exp=1716556783
+
+manga part also has a v5 page in
+https://mangapark.net/title/240712-en-the-guy-she-was-interested-in-wasn-t-a-guy-at-all
+
+with similar but diffierent ish links for pannels
+	ch1 pannel 1: https://xfs-n01.xfspp.com/comic/2002/62c/6384a773cddc18516a069c26/44271760_1200_1702_549240.jpeg
+	ch1 pannel 2: https://xfs-n07.xfspp.com/comic/2002/62c/6384a773cddc18516a069c26/44271762_1200_1704_516065.jpeg
+
+==================================================
+ MISC
+==================================================
+or whatever you call this template for manga sites
+https://ajinmanga.online/
+https://housekinokunimanga.com/
+https://www.chainsaw-man-manga.online/
+
+there are some variance in how they store their images but most are scrapable
+	ajin	: https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi4b-cPrsYmAOwBz_-P7YRn5xx_YZm2ZOEdVWqse-HXqoOcCVvS0mw0E9U7YZq7Y_mxPlDs1dLsp_96HowTspXqzhz69CpJdkABCYYq1zNOEX9cIAKGLrdsxWpYta3uQsV60NWufVcFjUMEXKvLeVwWjTxwoojXUQmpTgHxDb8qISPjFiok41v_Zr456w/s1600/03.jpg
+	hoseki 	: https://1.bp.blogspot.com/-NyUZOTTQ9JM/Xc3sDA9_ZpI/AAAAAAAAAG4/vh_0iamEeQ8AvmCyBw9efaDmHCi2Qnd3QCLcBGAsYHQ/s1600/026.jpg
+	chainsaw: https://sun9-48.userapi.com/impf/-TvecRl2Ib-a-cGX7jWMc4TA9yLfpsKEkIhYqw/nx-jyIKhZtE.jpg?size=740x1080&quality=96&sign=3c6c32e715847febe54f7e5ec9fb0691&type=album
+
+	among the three, only chainsaw isnt scrapable
+	maybe its the blog sites they store it in??
+	
+	addendum: 
+		hoseki has security where you cant (ctrl + i) 
+		but you can still access developer tools witht the chrome settings 
+		and can still scrape with requests

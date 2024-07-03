@@ -1,0 +1,90 @@
+im debating whether to use classes or use a database-like method to store the manga data
+
+firstly, the reason for the data storage is to make the process more modular
+	the download can stop and resume and doesnt have to gather the links all over again
+	i can track what ive downloaded and not have to redundantly download pics again
+	can have a reference for the chapter links and manga links
+
+part of the title will be used to create and organize the files they will be stored in
+
+==================================================
+ CLASS BASED
+==================================================
+
+manga_pannel: object
+	pannel_link:str
+	downloaded:bool
+
+manga_chapter: object
+	chapter_link:str
+	chapter_title:str
+	chapter_file_created:bool
+	manga_pannels:List[manga_pannel]
+
+manga: object
+	manga_link:str
+	manga_title:str
+	manga_file_created:bool
+	manga_chapters:List[manga_chapter]
+
+==================================================
+
+pros:
+	gives me practice in using classes
+	readable storing of data
+		I can have a json file for every manga I scrape
+	polymorphism for future manga downloading endeavors
+	attributes can be imported into json file easily
+cons:
+	slow development time 
+		accessing is annoying >:((
+		having to access manga then chapter then pannel is annoying to code
+	annoying accessing a list of all pannels
+
+==================================================
+ DATABASE-LIKE
+==================================================
+
+manga_pannel: table
+	pannel_id:int
+	chapter_id:int
+	manga_id:int
+
+	pannel_link:str
+	downloaded:bool
+
+manga_chapter: table
+	chapter_id:int
+	manga_id:int
+
+	chapter_title:str
+	chapter_link:str
+	chapter_file_created:bool
+
+manga: table
+	manga_id:int
+
+	manga_title:str
+	manga_link:str
+	manga_file_created:bool
+
+==================================================
+
+pros:
+	gives me practices in maybe using sql 
+	faster and more intuitive way to get a list of manga pannels
+	reusable databse for all the other mangas im gonna download
+cons:
+	no class extensions/polymorphism
+		less flexible for future use
+	inconvenient neat file for manga folder to summarize detials
+
+==================================================
+ ADDENDUM
+==================================================
+
+both can use multithreading fine(i think)
+	i can think of ways to do both at least
+
+I decided to use the class based one for the readabile json file
+	i need practice in class accessing and turning themm to json files anyways
