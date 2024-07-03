@@ -11,11 +11,9 @@ from typing import List
 # ========================================================================
 
 class Template:
-	def log(log_message:str = "log message") -> None:
-		print(f"log: {log_message}")
+	realtive_file_path:str = "scraped/"
 
 # ========================================================================
-
 class MangaPannel(Template):
 	def __init__(self, pannel_link: str) -> None:
 		self._pannel_link: str = pannel_link
@@ -26,21 +24,21 @@ class MangaPannel(Template):
 	
 	def download_pannel(
 		self,
-		file_name:str = "manga_pannel.png",
-		file_path:str = ""
+		file_path:str = "",
+		file_name:str = "manga_pannel.png"
 		)->None:
 
-		file_path = f"00_Scraped/{file_path}{file_name}"
+		file_path = f"{self.realtive_file_path}{file_path}{file_name}"
 
 		try:
-			self.log(f"star download \t\t: {file_name}")
+			print(f"{'star download':20}: {file_name}")
 			response = requests.get(self._pannel_link, timeout = 60)
 			open(file_path, 'wb').write(response.content)
 		except Exception as e:
-			self.log(f"download failed\t: {file_name}")
-			self.log(e)
+			print(f"{'download failed':20}: {file_name}")
+			print(e)
 		else:
-			self.log(f"download success\t\t: {file_name}")
+			print(f"{'download success':20}: {file_name}")
 			self._downloaded = True
 	
 # ========================================================================
@@ -66,13 +64,16 @@ class MangaChapter(Template):
 	
 	# Core Functions -----------------------------------------------------
 
-	def create_folder(self, manga_title:str = "manga_title")->None:
+	def create_folder(self,
+		file_path:str = ""
+		)->None:
+
 		try:
-			path = fr"00_Scraped/{manga_title}/{self._chapter_title}"
+			path = fr"{self.realtive_file_path}{file_path}{self._chapter_title}"
 			if os.path.exists(path) == False:
 				os.makedirs(path)
 		except Exception as e:
-			self.log(e)
+			print(e)
 		else:
 			self._chapter_folder_created = True
 	
@@ -81,7 +82,7 @@ class MangaChapter(Template):
 
 	def download_chapter(self):
 		for index, links in enumerate(self._pannels):
-			links.download_pannel(file_path = self._chapter_title ,  file_name = f"{index}.png")
+			links.download_pannel(file_path = self._chapter_title + '/' ,  file_name = f"{index}.png")
  
 	def get_pannel_links()->None:
 		pass
@@ -113,11 +114,11 @@ class MangaDetails(Template):
 	
 	def create_manga_folder(self)->None:
 		try:
-			path = fr"00_Scraped/{self._manga_title}"
+			path = fr"{self.realtive_file_path}{self._manga_title}"
 			if os.path.exists(path) == False:
 				os.makedirs(path)
 		except Exception as e:
-			self.log(e)
+			print(e)
 		else:
 			self._manga_folder_created = True
 	

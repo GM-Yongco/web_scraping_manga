@@ -30,7 +30,7 @@ class DynastyMangaChapter(MangaChapter):
 		nav_div:bs = soup.find("div", class_= fr"pages-list")
 		nav_a_list:List[bs] = nav_div.find_all("a", class_="page")
 
-		# getting image prefix
+		# getting image suffixes
 		img_link_suffxies:List[str] = []
 		for a in nav_a_list:
 			img_link_suffxies.append(a.get_text())
@@ -39,8 +39,8 @@ class DynastyMangaChapter(MangaChapter):
 		images:List[bs] = soup.find_all('img')
 		images_link:str = (images[1]).get('src')
 		portions:List[str] = images_link.split("/")
-		del portions[0]
-		del portions[-1]
+		del portions[0]		#trims an empty portion
+		del portions[-1]	#removes the suffix of the template link
 
 		img_link_prefix:str = DYNASTY_LINK + '/'
 		for p in portions:
@@ -50,7 +50,7 @@ class DynastyMangaChapter(MangaChapter):
 		for s in img_link_suffxies:
 			self.add_pannel(f"{img_link_prefix}{s}.webp")
 
-		self.log("GOT PANNEL LINKS")
+		print("GOT PANNEL LINKS")
 
 # ========================================================================
 class DynastyMangaDetails(MangaDetails):
