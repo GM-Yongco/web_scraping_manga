@@ -54,7 +54,8 @@ class MangaChapter(Template):
 		self._pannels:List[MangaPannel] = []
 
 	def __str__(self)->None:
-		retval:str = f"{self._chapter_title}:{self._chapter_link}"
+		retval:str = f"{'CHAPTER':10}:{self._chapter_title}"
+		retval = retval + f"{'LINK':10}:{{self._chapter_link}}"
 		retval = retval + ("\n") + ("-"*50)
 		for elements in self._pannels:
 			retval = retval + ("\n") + str(elements)
@@ -83,6 +84,7 @@ class MangaChapter(Template):
 	def download_chapter(self):
 		for index, links in enumerate(self._pannels):
 			links.download_pannel(file_path = self._chapter_title + '/' ,  file_name = f"{index}.png")
+		print("CHAPTER DOWNLOAD TERMINATED")
  
 	def get_pannel_links()->None:
 		pass
