@@ -1,5 +1,5 @@
 # Author			: G.M. Yongco #BeSomeoneWhoCanStandByShinomiya
-# Date				: ur my date uwu
+# Date				: ur my date uwu 2024/07/04
 # Description		: A template class to 
 # HEADERS ================================================================
 
@@ -26,13 +26,14 @@ def decorator_start_end(func):
 # ========================================================================
 
 def dynasty_chapter_test()->None:
-	chapter_link = "https://dynasty-scans.com/chapters/the_guy_she_was_interested_in_wasnt_a_guy_at_all_ch72"
+	chapter_link:str = "https://dynasty-scans.com/chapters/isnt_it_kiss_nijika_week"
 	chapter: DynastyMangaChapter = DynastyMangaChapter(chapter_link)
 
-	chapter._chapter_title = "test chapter 72"
+	chapter._chapter_title = (chapter_link.split('/'))[-1]
 
 	chapter.create_folder()
 	chapter.get_pannel_links()
+	print(chapter.__str__())
 	chapter.download_chapter()
 
 # ========================================================================

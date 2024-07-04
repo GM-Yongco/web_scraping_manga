@@ -58,6 +58,14 @@ their pannel links always give the first pannel when using requests
 	might be possible using selenium
 	but not now
 
+STOOPID BOOCHI THE ROCK IS NOT CONSISTENT
+	pannel page			: https://dynasty-scans.com/chapters/room_you_cant_leave_without_doing_that#3
+	content in nav bar	: "003"
+	img link 			: https://dynasty-scans.com/system/releases/000/041/602/IMG_003.webp 
+
+	IT HAS A RANDOM IMG_ THERE WTF
+	WHY
+
 ==================================================
  MANGAPARK
 ==================================================
