@@ -12,6 +12,13 @@ from typing import List
 
 class Template:
 	realtive_file_path:str = "scraped/"
+	illegal_characters:List[str] = [ "#","%","&","{","}","\\","<",">","*","?","/","$","!","'",'"',":","@","+","`","|","="]
+
+	def clean_string(self, to_clean:str)->None:
+		for char in self.illegal_characters:
+			to_clean = to_clean.replace(char, "")
+		to_clean = to_clean.replace(" ", "_")
+		return to_clean
 
 # ========================================================================
 class MangaPannel(Template):
@@ -26,12 +33,12 @@ class MangaPannel(Template):
 		self,
 		file_path:str = "",
 		file_name:str = "manga_pannel.png"
-		)->None:
+		)->bool:
 
 		file_path = f"{self.realtive_file_path}{file_path}{file_name}"
 
 		try:
-			print(f"{'star download':20}: {file_name}")
+			print(f"{'start download':20}: {file_name}")
 			response = requests.get(self._pannel_link, timeout = 60)
 			open(file_path, 'wb').write(response.content)
 		except Exception as e:
@@ -40,22 +47,26 @@ class MangaPannel(Template):
 		else:
 			print(f"{'download success':20}: {file_name}")
 			self._downloaded = True
+		
+		return self._downloaded
 	
 # ========================================================================
 class MangaChapter(Template):
 	def __init__(self, 
-		chapter_link:str = "0",
+		chapter_link:str = "",
 		chapter_title:str = "chapter_title"
 		)-> None:
 
 		self._chapter_link:str = chapter_link
 		self._chapter_title:str = chapter_title
 		self._chapter_folder_created:bool = False
+		self._chapter_complete_download:bool = False
+		
 		self._pannels:List[MangaPannel] = []
 
 	def __str__(self)->None:
-		retval:str = f"{'CHAPTER':10}:{self._chapter_title}"
-		retval = retval + f"{'LINK':10}:{{self._chapter_link}}"
+		retval:str = f"\n{'CHAPTER':10}:{self._chapter_title}"
+		retval = retval + ("\n") + f"{'LINK':10}:{self._chapter_link}"
 		retval = retval + ("\n") + ("-"*50)
 		for elements in self._pannels:
 			retval = retval + ("\n") + str(elements)
@@ -63,9 +74,17 @@ class MangaChapter(Template):
 
 		return retval
 	
+	def __dict__(self)->None:
+		retval:dict = {
+			"chapter_link":self._chapter_link, 
+			"chapter_title":self._chapter_title,
+			"chapter_folder_created":self._chapter_folder_created ,
+			"chapter_complete_download" : self._chapter_complete_download
+		}
+	
 	# Core Functions -----------------------------------------------------
 
-	def create_folder(self,
+	def create_chapter_folder(self,
 		file_path:str = ""
 		)->None:
 
@@ -76,43 +95,66 @@ class MangaChapter(Template):
 		except Exception as e:
 			print(e)
 		else:
+			print("CHAPTER FOLDER CREATED")
 			self._chapter_folder_created = True
+
+	def download_chapter(self, file_path:str = "") -> bool:
+		check_val:bool = True
+		for index, pannel in enumerate(self._pannels):
+			if pannel.download_pannel(
+				file_path = file_path + '/' + self._chapter_title + '/' ,  
+				file_name = f"{index}.png"
+				) == False:
+				check_val = False
+
+		self._chapter_complete_download = check_val
+		return self._chapter_complete_download
 	
 	def add_pannel(self, pannel_link:str)->None:
 		self._pannels.append(MangaPannel(pannel_link))
-
-	def download_chapter(self):
-		for index, links in enumerate(self._pannels):
-			links.download_pannel(file_path = self._chapter_title + '/' ,  file_name = f"{index}.png")
-		print("CHAPTER DOWNLOAD TERMINATED")
  
-	def get_pannel_links()->None:
-		pass
+	def get_pannel_links(self)->None:
+		print("none added in: get_pannel_links")
 		
+	# Continue Functions -----------------------------------------------------
+	
+
 # ========================================================================
 class MangaDetails(Template):
 	def __init__(self, 
-		manga_link:str = "0",
-		manga_title:str = ""
+		manga_link:str = "empty",
+		manga_title:str = "empty_manga_title"
 		)-> None:
 
 		self._manga_link:str = manga_link
 		self._manga_title:str = manga_title
 		self._manga_folder_created:bool = False
-		self._chapters:List[MangaChapter] = []
+
+		self._manga_chapters:List[MangaChapter] = []
+		self._manga_complete_download:bool = False
 
 	def __str__(self)->None:
-		retval:str = f"{self._manga_title}:{self._manga_link}"
-		retval = retval + ("="*50)
+		retval:str = f"{'TITLE':10}:{self._manga_title}"
+		retval = retval + '\n' + f"{'LINK':10}:{self._manga_link}"
+		retval = retval + '\n' + ("="*50)
 
-		for elements in self._chapters:
-			retval = retval + str(elements)
+		for chapter in self._manga_chapters:
+			retval = retval + str(chapter)
 
-		retval = retval + ("="*50)
+		retval = retval + '\n' + ("="*50)
 
 		return retval
 
-	# Core Functions -----------------------------------------------------
+	def __dict__(self) -> dict:
+		ret_val = {
+			"manga_link": self._manga_link,
+			"manga_title" : self._manga_title,
+			"manga_folder_created": self._manga_folder_created,
+			"manga_chapters": self._manga_chapters.__dict__
+		}
+		return ret_val
+
+	# Resune Functions -----------------------------------------------------
 	
 	def create_manga_folder(self)->None:
 		try:
@@ -122,17 +164,34 @@ class MangaDetails(Template):
 		except Exception as e:
 			print(e)
 		else:
+			print("MANGA FILE CREATED")
 			self._manga_folder_created = True
 	
-	def create_manga_chapters(self)->None:
-		for chapter in self._chapters:
-				pass
+	def download_manga(self)->None:
+		self.create_manga_folder()
+		check_val = True
+		for chapter in self._manga_chapters:
+			chapter.create_chapter_folder(self._manga_title + '/')
+			chapter.get_pannel_links()
+			if chapter.download_chapter(self._manga_title) == False:
+				check_val = False
+		
+		self._manga_complete_download = check_val
 
 
 	def add_chapter(self, chapter_link, chapter_title)->None:
-		self._chapters.append(MangaChapter(chapter_link, chapter_title))
+		self._manga_chapters.append(MangaChapter(chapter_link, chapter_title))
 	
 	def get_chapter_links()->None:
+		print("none added in: get_chapter_links")
+
+	# Resune Functions -----------------------------------------------------
+	
+	def create_resume(self)->None:
 		pass
+
+	def resume(self)->None:
+		pass
+
 
 	

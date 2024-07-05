@@ -1,0 +1,57 @@
+==================================================
+ CLASS
+==================================================
+
+no changes in attributes relative to base manga class
+
+manga_pannel: object
+	pannel_link:str
+	downloaded:bool
+
+manga_chapter: object
+	chapter_link:str
+	chapter_title:str
+	chapter_file_created:bool
+	manga_pannels:List[manga_pannel]
+
+manga: object
+	manga_link:str
+	manga_title:str
+	manga_file_created:bool
+	manga_chapters:List[manga_chapter]
+
+==================================================
+
+manga_pannel.get_pannel_links
+
+	description:
+		returns all of the img links from a manga chapter link
+
+	requirements/edge cases:
+		doesnt use selenium: i dont want to, slow af
+			uses html.requests for the html scraping
+		downloadable images using urlretrieve
+
+
+	explanation of internals:
+		uses requests and beautiful soup to aquire the html
+		filters for the pannel links
+
+		it was found that the image links in dynasty is pretty consistent within chapter but not wihtin the entire manga
+		it was also found that the differentiator for each pannel img was the same in the pannel nav bar
+
+		note: 
+			the differentiator is always at the latter part of the link and so 
+			the code adapted prefix for the consistent bart of the link and suffix for the differentiator
+
+		first we aquire the nav bar content for the suffixes
+		then we aquire the first image link 
+		remove the first image suffix
+
+		then stitch both the prefix and the suffixes to get the img links
+
+
+
+	theoretical faq
+		question: why not use the <a> tags in the pannel nav to get the img link for each pannel
+		response: using urllib and html requests cant use the specific pannel link and defaults to the first pannel page

@@ -58,13 +58,10 @@ their pannel links always give the first pannel when using requests
 	might be possible using selenium
 	but not now
 
-STOOPID BOOCHI THE ROCK IS NOT CONSISTENT
+split("/") not working anyjore
 	pannel page			: https://dynasty-scans.com/chapters/room_you_cant_leave_without_doing_that#3
 	content in nav bar	: "003"
 	img link 			: https://dynasty-scans.com/system/releases/000/041/602/IMG_003.webp 
-
-	IT HAS A RANDOM IMG_ THERE WTF
-	WHY
 
 ==================================================
  MANGAPARK
@@ -75,7 +72,7 @@ manga park is fast af but you have to click the load all pages thingy
 	ch1 pannel 1: https://xfs-n01.xfspp.com/comic/2002/62c/6384a773cddc18516a069c26/44271760_1200_1702_549240.jpeg?acc=n93WIgKEgIsEIm2o1MJbpQ&exp=1716556783
 	ch1 pannel 2: https://xfs-n07.xfspp.com/comic/2002/62c/6384a773cddc18516a069c26/44271762_1200_1704_516065.jpeg?acc=fKgz0B8yuBX_oJ1GkoidXQ&exp=1716556783
 
-manga part also has a v5 page in
+manga park also has a v5 page in
 https://mangapark.net/title/240712-en-the-guy-she-was-interested-in-wasn-t-a-guy-at-all
 
 with similar but diffierent ish links for pannels
@@ -95,7 +92,7 @@ there are some variance in how they store their images but most are scrapable
 	hoseki 	: https://1.bp.blogspot.com/-NyUZOTTQ9JM/Xc3sDA9_ZpI/AAAAAAAAAG4/vh_0iamEeQ8AvmCyBw9efaDmHCi2Qnd3QCLcBGAsYHQ/s1600/026.jpg
 	chainsaw: https://sun9-48.userapi.com/impf/-TvecRl2Ib-a-cGX7jWMc4TA9yLfpsKEkIhYqw/nx-jyIKhZtE.jpg?size=740x1080&quality=96&sign=3c6c32e715847febe54f7e5ec9fb0691&type=album
 
-	among the three, only chainsaw isnt scrapable
+	among the three, only chainsaw isnt scrapable with url retrieve
 	maybe its the blog sites they store it in??
 	
 	addendum: 
