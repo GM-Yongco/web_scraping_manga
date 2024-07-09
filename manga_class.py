@@ -3,6 +3,7 @@
 # Description		: A template class for manga downlaoding
 # HEADERS ================================================================
 import os
+import json
 import requests
 from typing import List
 
@@ -92,7 +93,7 @@ class MangaChapter(Template):
         try:
             path = fr"{self.realtive_file_path}{file_path}{self._chapter_title}"
             if os.path.exists(path) == False:
-	            os.makedirs(path)
+                os.makedirs(path)
         except Exception as e:
             print(e)
         else:
@@ -103,10 +104,10 @@ class MangaChapter(Template):
         check_val:bool = True
         for index, pannel in enumerate(self._pannels):
             if pannel.download_pannel(
-	            file_path = file_path + '/' + self._chapter_title + '/' ,  
-	            file_name = f"{index}.png"
-	            ) == False:
-	            check_val = False
+                file_path = file_path + '/' + self._chapter_title + '/' ,  
+                file_name = f"{index}.png"
+                ) == False:
+                check_val = False
 
         self._chapter_complete_download = check_val
         return self._chapter_complete_download
@@ -160,13 +161,13 @@ class MangaDetails(Template):
         return ret_val
         
     
-    # Resume Functions -----------------------------------------------------
+    # Core Functions -----------------------------------------------------
     
     def create_manga_folder(self)->None:
         try:
             path = fr"{self.realtive_file_path}{self._manga_title}"
             if os.path.exists(path) == False:
-	            os.makedirs(path)
+                os.makedirs(path)
         except Exception as e:
             print(e)
         else:
@@ -180,7 +181,7 @@ class MangaDetails(Template):
             chapter.create_chapter_folder(self._manga_title + '/')
             chapter.get_pannel_links()
             if chapter.download_chapter(self._manga_title) == False:
-	            check_val = False
+                check_val = False
         
         self._manga_complete_download = check_val
 
@@ -191,10 +192,19 @@ class MangaDetails(Template):
     def get_chapter_links()->None:
         print("none added in: get_chapter_links")
 
-    # Resune Functions -----------------------------------------------------
+    # Resume Functions -----------------------------------------------------
     
     def create_resume(self)->None:
-        pass
+        check_val = 0
+        file_name = "manga_details.json"
+        path = fr"{self.realtive_file_path}{self._manga_title}/{file_name}"
+
+        if os.path.exists(path) == False:
+            the_file = open(path,"x")   
+            the_file.close()
+
+        the_file = open(path, "w", encoding='utf-8')
+        json.dump(self.__dict__(), the_file, indent = 4)
 
     def resume(self)->None:
         pass

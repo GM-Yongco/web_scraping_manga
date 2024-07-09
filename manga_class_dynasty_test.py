@@ -46,9 +46,11 @@ def dynasty_manga_test()->None:
     manga._manga_title = (manga._manga_link.split('/'))[-1]
 
     manga.get_chapter_links()
+    manga.create_manga_folder()
     #manga.download_manga()
     #print(str(manga))
     print(manga.__dict__())
+    manga.create_resume()
 
 # ========================================================================
 # MAIN
