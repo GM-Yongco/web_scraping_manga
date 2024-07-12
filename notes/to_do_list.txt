@@ -1,0 +1,17 @@
+make a website thingy to read from 
+	so it wont be annoying to need to traverse folders for the next chapter
+
+simplify the functions and make them more modular
+make clear which one needs to be redefined in the specific website class
+
+figure out how to do pannel level resuming and JUST THINK
+
+create mobile-ify function for phone reading
+	all the pannels in one folder
+	seprate the chapters with a small image made from pillow
+	make sure the names can go alphabetical order
+		prolly use the index for chapter names
+
+try and use the cookies and the get requests for manga dex and other sites
+
+==========================================================================
