@@ -13,10 +13,11 @@ from typing import List, Dict
 
 class Template:
 	realtive_file_path:str = "scraped/"
-	illegal_characters:List[str] = [ "#","%","&","{","}","\\","<",">","*","?","/","$","!","'",'"',":","@","+","`","|","="]
 
+	# to clean strings that are illegal as folders and filenames
 	def clean_string(self, to_clean:str)->None:
-		for char in self.illegal_characters:
+		illegal_characters:List[str] = [ "#","%","&","{","}","\\","<",">","*","?","/","$","!","'",'"',":","@","+","`","|","="]
+		for char in illegal_characters:
 			to_clean = to_clean.replace(char, "")
 		to_clean = to_clean.replace(" ", "_")
 		return to_clean
