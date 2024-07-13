@@ -5,7 +5,7 @@
 import os
 import json
 import requests
-from typing import List, Dict
+from typing import List
 
 # ========================================================================
 # CLASSES
