@@ -55,3 +55,8 @@ def fetch_data_our_sunny_days()->ModelData:
 	ret_val:ModelData = fetch_data_xbato("2428150")
 	ret_val.data_label = "our_sunny_days"
 	return ret_val
+
+def fetch_data_witch_hat()->ModelData:
+	ret_val:ModelData = fetch_data_xbato("78556")
+	ret_val.data_label = "witch_hat_atelier"
+	return ret_val
